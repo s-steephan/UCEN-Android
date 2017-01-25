@@ -1,5 +1,6 @@
 package com.durai.ucen.ucen;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -40,8 +41,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String username = t_username.getText().toString();
         String password = t_password.getText().toString();
-
-        getToken(username, password);
+        if (username.trim().length()>0 && password.trim().length()>0){
+            getToken(username, password);
+        }
+        else if (username.trim().length()==0 && password.trim().length()==0){
+            Toast.makeText(LoginActivity.this, "Please fill username and password", Toast.LENGTH_LONG).show();
+        }
+        else if (username.trim().length()==0 ){
+            Toast.makeText(LoginActivity.this, "Please fill username", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "Please fill password", Toast.LENGTH_LONG).show();
+        }
 
     }
     private void getToken(String username, String password){
@@ -55,6 +66,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public static final String PREFS_NAME = "Login_Token";
                     @Override
                     public void success(Token result, Response response) {
+                        ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
+                        progressdialog.setMessage("Please Wait....");
+                        progressdialog.show();
                         t_username.setText("");
                         t_password.setText("");
                         String token = result.getToken();
@@ -63,16 +77,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.putString("token", token);
                         editor.apply();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
+                        progressdialog.dismiss();
+                        Toast.makeText(LoginActivity.this, "Welcome...", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void failure(RetrofitError cause) {
-                        t_password.setText("");
-                        String errorDescription = "Wrong Username or Password";
+                        String errorDescription;
                         if (cause.getResponse() == null) {
                                 errorDescription = "No Internet Connection";
                             }
+                        else {
+                            t_password.setText("");
+                            errorDescription = "Wrong username or password";
+                        }
                         Toast.makeText(LoginActivity.this, errorDescription, Toast.LENGTH_LONG).show();
                     }
                 }
