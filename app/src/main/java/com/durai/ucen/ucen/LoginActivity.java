@@ -56,6 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
     private void getToken(String username, String password){
+        final ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
+        progressdialog.setMessage("Authenticating...");
+        progressdialog.show();
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(ROOT_URL)
                 .build();
@@ -66,9 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public static final String PREFS_NAME = "Login_Token";
                     @Override
                     public void success(Token result, Response response) {
-                        ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
-                        progressdialog.setMessage("Please Wait....");
-                        progressdialog.show();
+
                         t_username.setText("");
                         t_password.setText("");
                         String token = result.getToken();
@@ -77,8 +78,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.putString("token", token);
                         editor.apply();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        progressdialog.dismiss();
                         Toast.makeText(LoginActivity.this, "Welcome...", Toast.LENGTH_LONG).show();
+                        progressdialog.dismiss();
                     }
 
                     @Override
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             errorDescription = "Wrong username or password";
                         }
                         Toast.makeText(LoginActivity.this, errorDescription, Toast.LENGTH_LONG).show();
+                        progressdialog.dismiss();
                     }
                 }
         );
