@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         t_password = (EditText) findViewById(R.id.t_password);
         login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
-        if(!CheckNetwork.isInternetAvailable(LoginActivity.this)) {
+        if(!UcenUtils.isInternetAvailable(LoginActivity.this)) {
             Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
         }
     }
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String username = t_username.getText().toString();
         String password = t_password.getText().toString();
-        if(CheckNetwork.isInternetAvailable(LoginActivity.this)) {
+        if(UcenUtils.isInternetAvailable(LoginActivity.this)) {
             if (username.trim().length() > 0 && password.trim().length() > 0) {
                 getToken(username, password);
             } else if (username.trim().length() == 0 && password.trim().length() == 0) {
