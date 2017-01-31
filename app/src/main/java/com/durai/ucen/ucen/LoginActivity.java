@@ -35,25 +35,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         t_password = (EditText) findViewById(R.id.t_password);
         login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
+        if(!CheckNetwork.isInternetAvailable(LoginActivity.this)) {
+            Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onClick(View v) {
         String username = t_username.getText().toString();
         String password = t_password.getText().toString();
-        if (username.trim().length()>0 && password.trim().length()>0){
-            getToken(username, password);
-        }
-        else if (username.trim().length()==0 && password.trim().length()==0){
-            Toast.makeText(LoginActivity.this, "Please fill username and password", Toast.LENGTH_LONG).show();
-        }
-        else if (username.trim().length()==0 ){
-            Toast.makeText(LoginActivity.this, "Please fill username", Toast.LENGTH_LONG).show();
+        if(CheckNetwork.isInternetAvailable(LoginActivity.this)) {
+            if (username.trim().length() > 0 && password.trim().length() > 0) {
+                getToken(username, password);
+            } else if (username.trim().length() == 0 && password.trim().length() == 0) {
+                Toast.makeText(LoginActivity.this, "Please fill username and password", Toast.LENGTH_LONG).show();
+            } else if (username.trim().length() == 0) {
+                Toast.makeText(LoginActivity.this, "Please fill username", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(LoginActivity.this, "Please fill password", Toast.LENGTH_LONG).show();
+            }
         }
         else {
-            Toast.makeText(LoginActivity.this, "Please fill password", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
         }
-
     }
     private void getToken(String username, String password){
         final ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
