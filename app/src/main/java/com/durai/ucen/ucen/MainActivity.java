@@ -1,8 +1,12 @@
 package com.durai.ucen.ucen;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +16,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String ROOT_URL = "https://ucen.herokuapp.com";
+    public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getUserDetails();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,13 +62,86 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void getUserDetails() {
+        final ProgressDialog progressdialog = new ProgressDialog(MainActivity.this);
+        progressdialog.setMessage("Please wait..");
+        progressdialog.show();
+            RestAdapter adapter = new RestAdapter.Builder()
+                    .setEndpoint(ROOT_URL)
+                    .setRequestInterceptor(new RequestInterceptor() {
+                        @Override
+                        public void intercept(RequestFacade request) {
+                            String token;
+                            token = UcenUtils.getToken(MainActivity.this);
+                            request.addHeader("Authorization", token);
+                        }
+                    })
+                    .build();
+
+        UcenAPI api = adapter.create(UcenAPI.class);
+
+        api.getUserDetails(new Callback<UserDetails>() {
+            @Override
+            public void success(UserDetails userDetails, Response response) {
+                TextView t1 = (TextView) findViewById(R.id.t_displayname);
+                TextView t2 = (TextView) findViewById(R.id.t_email);
+                String displayname = null, email ;
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME_1, MODE_PRIVATE);
+                    if (!userDetails.getBasic_details().getFirst_name().isEmpty() && !userDetails.getBasic_details().getLast_name().isEmpty()) {
+                        displayname = userDetails.getBasic_details().getFirst_name() + " " + userDetails.getBasic_details().getLast_name();
+                    } else if (userDetails.getBasic_details().getFirst_name().isEmpty() && userDetails.getBasic_details().getLast_name().isEmpty()) {
+                        displayname = userDetails.getBasic_details().getUsername();
+                    } else if (userDetails.getBasic_details().getFirst_name().isEmpty()) {
+                        displayname = userDetails.getBasic_details().getLast_name();
+                    } else if (userDetails.getBasic_details().getLast_name().isEmpty()) {
+                        displayname = userDetails.getBasic_details().getFirst_name();
+                    }
+
+                    email = userDetails.getBasic_details().getEmail();
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("display_name", displayname);
+                    editor.putString("email", email);
+                    editor.apply();
+                    t1.setText(displayname);
+                    t2.setText(email);
+                    progressdialog.dismiss();
+            }
+
+            @Override
+            public void failure(RetrofitError cause) {
+                String errorDescription;
+                SharedPreferences user_details = MainActivity.this.getSharedPreferences(PREFS_NAME_1, MODE_PRIVATE);
+                SharedPreferences login_credentials = MainActivity.this.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
+                if (cause.getResponse() == null) {
+                    TextView t1 = (TextView) findViewById(R.id.t_displayname);
+                    TextView t2 = (TextView) findViewById(R.id.t_email);
+                    String displayname, email ;
+                    displayname = user_details.getString("display_name", "");
+                    email = user_details.getString("email", "");
+                    t1.setText(displayname);
+                    t2.setText(email);
+                    user_details.edit().clear().apply();
+                    login_credentials.edit().clear().apply();
+                    errorDescription = "No Internet Connection";
+                } else {
+                    user_details.edit().clear().apply();
+                    login_credentials.edit().clear().apply();
+                    errorDescription = "Please login again";
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+                Toast.makeText(MainActivity.this, errorDescription+cause, Toast.LENGTH_LONG).show();
+                progressdialog.dismiss();
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            ActivityCompat.finishAffinity(MainActivity.this);
         }
     }
 
