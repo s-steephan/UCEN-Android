@@ -186,6 +186,18 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+        else if (id == R.id.nav_logout) {
+            final ProgressDialog progressdialog = new ProgressDialog(MainActivity.this);
+            progressdialog.setMessage("Logging out..");
+            progressdialog.show();
+            SharedPreferences user_details = MainActivity.this.getSharedPreferences(PREFS_NAME_1, MODE_PRIVATE);
+            SharedPreferences login_credentials = MainActivity.this.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
+            user_details.edit().clear().apply();
+            login_credentials.edit().clear().apply();
+            Toast.makeText(MainActivity.this, "Logout Success", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            progressdialog.dismiss();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +43,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(!UcenUtils.isInternetAvailable(LoginActivity.this)) {
             Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+            ActivityCompat.finishAffinity(LoginActivity.this);
     }
 
     @Override
