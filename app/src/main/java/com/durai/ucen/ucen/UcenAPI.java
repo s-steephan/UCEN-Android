@@ -30,4 +30,7 @@ public interface UcenAPI {
         @GET("/api/v1/me/")
         public void getUserDetails(Callback<UserDetails> response);
 
+        @GET("/api/v1/posts/")
+        public void getCirculars(Callback<List<Circular>> response);
+
 };

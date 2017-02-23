@@ -70,10 +70,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void getToken(String username, String password){
-        InputMethodManager inputManager = (InputMethodManager)
+        /*InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+                InputMethodManager.HIDE_NOT_ALWAYS);*/
 
         final ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
         progressdialog.setMessage("Authenticating...");
@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public static final String PREFS_NAME = "Login_Token";
                     @Override
                     public void success(Token result, Response response) {
-
                         t_username.setText("");
                         t_password.setText("");
                         String token = result.getToken();

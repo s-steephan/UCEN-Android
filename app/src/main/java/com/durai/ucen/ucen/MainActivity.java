@@ -16,11 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -33,24 +36,22 @@ import retrofit.mime.TypedByteArray;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String ROOT_URL = "https://ucen.herokuapp.com";
-    public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";;
+    public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";
+    ListView listView;
+    CircularAdapter circularAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = (ListView) findViewById(R.id.circular_list);
+        ArrayList<Circular> arrayOfUsers = new ArrayList<Circular>();
+
+        circularAdapter = new CircularAdapter(this, arrayOfUsers);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getUserDetails();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getCirculars();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity
             public void failure(RetrofitError cause) {
                 String errorDescription;
                 SharedPreferences user_details = MainActivity.this.getSharedPreferences(PREFS_NAME_1, MODE_PRIVATE);
-                SharedPreferences login_credentials = MainActivity.this.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
                 if (cause.getResponse() == null) {
                     TextView t1 = (TextView) findViewById(R.id.t_displayname);
                     TextView t2 = (TextView) findViewById(R.id.t_email);
@@ -120,17 +120,63 @@ public class MainActivity extends AppCompatActivity
                     email = user_details.getString("email", "");
                     t1.setText(displayname);
                     t2.setText(email);
-                    user_details.edit().clear().apply();
-                    login_credentials.edit().clear().apply();
                     errorDescription = "No Internet Connection";
                 } else {
-                    user_details.edit().clear().apply();
-                    login_credentials.edit().clear().apply();
+                    UcenUtils.clearAllDetails(MainActivity.this);
                     errorDescription = "Please login again";
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
-                Toast.makeText(MainActivity.this, errorDescription+cause, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, errorDescription, Toast.LENGTH_LONG).show();
                 progressdialog.dismiss();
+            }
+        });
+    }
+
+    private void getCirculars(){
+        final ProgressDialog loading = ProgressDialog.show(this,"Updating Cirulars","Please wait...",false,false);
+
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(ROOT_URL)
+                .setRequestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestFacade request) {
+                        String token;
+                        token = UcenUtils.getToken(MainActivity.this);
+                        request.addHeader("Authorization", token);
+                    }
+                })
+                .build();
+
+
+        UcenAPI api = adapter.create(UcenAPI.class);
+
+        api.getCirculars(new Callback<List<Circular>>() {
+            @Override
+            public void success(List<Circular> circulars, Response response) {
+                for(int i=0; i<circulars.size(); i++){
+                    Circular circular = new Circular();
+                    circular.setTitle(circulars.get(i).getTitle());
+                    circular.setCreated(circulars.get(i).getCreated());
+                    //circularAdapter.addAll(circular);
+                    circularAdapter.add(circular);
+                }
+                listView.setAdapter(circularAdapter);
+                loading.dismiss();
+            }
+
+            @Override
+            public void failure(RetrofitError cause) {
+                String errorDescription;
+                if (cause.getResponse() == null) {
+                    errorDescription = "No Internet Connection";
+                }
+                else {
+                    UcenUtils.clearAllDetails(MainActivity.this);
+                    errorDescription = "Please login again";
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+                Toast.makeText(MainActivity.this, errorDescription, Toast.LENGTH_LONG).show();
+                loading.dismiss();
             }
         });
     }
