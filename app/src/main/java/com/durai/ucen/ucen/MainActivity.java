@@ -38,16 +38,18 @@ public class MainActivity extends AppCompatActivity
     public static final String ROOT_URL = "https://ucen.herokuapp.com";
     public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";
     ListView listView;
+    TextView t_empty;
     CircularAdapter circularAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        t_empty = (TextView) findViewById(R.id.empty_text);
         listView = (ListView) findViewById(R.id.circular_list);
-        ArrayList<Circular> arrayOfUsers = new ArrayList<Circular>();
+        ArrayList<Circular> arrayOfCirculars = new ArrayList<Circular>();
 
-        circularAdapter = new CircularAdapter(this, arrayOfUsers);
+        circularAdapter = new CircularAdapter(this, arrayOfCirculars);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getUserDetails();
@@ -160,6 +162,11 @@ public class MainActivity extends AppCompatActivity
                     //circularAdapter.addAll(circular);
                     circularAdapter.add(circular);
                 }
+
+                t_empty.setVisibility(View.INVISIBLE);
+                if(circulars.size()==0){
+                    t_empty.setVisibility(View.VISIBLE);
+                }
                 listView.setAdapter(circularAdapter);
                 loading.dismiss();
             }
@@ -221,8 +228,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_attendance) {
+            startActivity(new Intent(MainActivity.this, AttendanceActivity.class));
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

@@ -8,6 +8,14 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/empty_text"
+        android:text="No Cirulars found"
+        android:textSize="15dp"
+        android:gravity="center"/>
+
     <ListView
         android:id="@+id/circular_list"
         android:paddingTop="?attr/actionBarSize"

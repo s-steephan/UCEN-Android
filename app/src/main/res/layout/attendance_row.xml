@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:plainpie="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="100dp">
+
+    <az.plainpie.PieView
+        android:id="@+id/pieView"
+        android:layout_width="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="100dp"
+        plainpie:inner_pie_padding="30"
+        plainpie:percentage="75"
+        plainpie:percentage_size="20"
+        plainpie:inner_text_visibility="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/semester_text"
+        android:text="Semester 1"
+        android:layout_toRightOf="@+id/pieView"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="50dp"
+        android:textSize="13dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/percentage_text"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:textSize="20dp"
+        android:text="75%"
+        android:layout_below="@+id/semester_text"
+        android:layout_alignLeft="@+id/semester_text"
+        android:layout_alignStart="@+id/semester_text" />
+
+
+</RelativeLayout>
