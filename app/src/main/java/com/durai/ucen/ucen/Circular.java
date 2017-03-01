@@ -9,13 +9,9 @@ import java.util.Map;
 
 public class Circular {
     private Integer id;
-    private String created;
-    private String modified;
     private String title;
     private String summary;
-    private Boolean isActive;
-    private String publishedDate;
-    private Integer createdBy;
+    private String published_date;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Integer getId() {
@@ -24,22 +20,6 @@ public class Circular {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getModified() {
-        return modified;
-    }
-
-    public void setModified(String modified) {
-        this.modified = modified;
     }
 
     public String getTitle() {
@@ -58,28 +38,12 @@ public class Circular {
         this.summary = summary;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public String getPublishedDate() {
-        return publishedDate;
+        return published_date;
     }
 
-    public void setPublishedDate(String publishedDate) {
-        this.publishedDate = publishedDate;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
+    public void setPublishedDate(String published_date) {
+        this.published_date = published_date;
     }
 
     public Map<String, Object> getAdditionalProperties() {

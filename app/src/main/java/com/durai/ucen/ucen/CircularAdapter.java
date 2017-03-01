@@ -31,7 +31,7 @@ public class CircularAdapter extends ArrayAdapter<Circular> {
         TextView t_title= (TextView) convertView.findViewById(R.id.circular_title);
         TextView t_date = (TextView) convertView.findViewById(R.id.circular_date);
 
-        String date = UcenUtils.formatDate(circular.getCreated());
+        String date = UcenUtils.formatDate(circular.getPublishedDate());
 
         t_title.setText(circular.getTitle());
         t_date.setText("Published on: "+date);

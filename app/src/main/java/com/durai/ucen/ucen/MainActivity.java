@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
                     Circular circular = new Circular();
                     circular.setId(circulars.get(i).getId());
                     circular.setTitle(circulars.get(i).getTitle());
-                    circular.setCreated(circulars.get(i).getCreated());
+                    circular.setPublishedDate(circulars.get(i).getPublishedDate());
                     //circularAdapter.addAll(circular);
                     circularAdapter.add(circular);
                 }
