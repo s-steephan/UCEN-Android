@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,6 +64,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position,
+                                    long id) {
+                Circular model = (Circular) parent.getItemAtPosition(position);
+                //Toast.makeText(MainActivity.this, ""+model.getId(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, CircularDetailActivity.class);
+                intent.putExtra("circular_id", model.getId().toString());
+                startActivity(intent);
+            }
+        });
     }
 
     private void getUserDetails() {
@@ -157,6 +171,7 @@ public class MainActivity extends AppCompatActivity
             public void success(List<Circular> circulars, Response response) {
                 for(int i=0; i<circulars.size(); i++){
                     Circular circular = new Circular();
+                    circular.setId(circulars.get(i).getId());
                     circular.setTitle(circulars.get(i).getTitle());
                     circular.setCreated(circulars.get(i).getCreated());
                     //circularAdapter.addAll(circular);

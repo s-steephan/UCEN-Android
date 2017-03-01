@@ -14,8 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".LoginActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme.FullScreen">
@@ -25,8 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AttendanceActivity"
-            android:parentActivityName=".MainActivity"> </activity>
+        <activity
+            android:name=".AttendanceActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".CircularDetailActivity"></activity>
     </application>
 
 </manifest>

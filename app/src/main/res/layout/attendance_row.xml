@@ -24,7 +24,7 @@
         android:text="Semester 1"
         android:layout_toRightOf="@+id/pieView"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="45dp"
         android:textSize="13dp" />
 
     <TextView

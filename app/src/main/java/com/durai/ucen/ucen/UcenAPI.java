@@ -36,4 +36,7 @@ public interface UcenAPI {
         @GET("/api/v1/attendance/")
         public void getAttendance(Callback<List<Attendance>> response);
 
+        @GET("/api/v1/posts/{id}/")
+        public void getCircularDetail(@Path("id") String id, Callback<CircularDetail> response);
+
 };
