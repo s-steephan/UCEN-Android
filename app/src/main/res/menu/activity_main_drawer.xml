@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Circulars" />
-        <item
-            android:id="@+id/nav_attendance"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Attenance" />
-        <item
-            android:id="@+id/nav_managee"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Analytics" />
-    </group>
-
-    <item android:title="Marks">
-        <menu>
-        <item
-            android:id="@+id/nav_result"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Result" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Map" />
-            </menu>
-    </item>
-
-    <item android:title="Communicate">
+    <item android:title="Academic Details">
         <menu>
             <item
+                android:id="@+id/nav_result"
+                android:icon="@drawable/circulars_icon"
+                android:title="Results" />
+
+            <item
+                android:id="@+id/nav_attendance"
+                android:icon="@drawable/attendance_icon"
+                android:title="Attenance" />
+        </menu>
+    </item>
+
+    <item android:title="Analytics">
+        <menu>
+            <item
+                android:id="@+id/nav_analytics"
+                android:icon="@drawable/pie_chart"
+                android:title="Analytics" />
+        </menu>
+    </item>
+
+    <item android:title="Utilities">
+        <menu>
+            <item
+                android:id="@+id/nav_map"
+                android:icon="@drawable/map_icon"
+                android:title="Locate UCEN" />
+            <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/feedback_icon"
                 android:title="Feedback" />
         </menu>
     </item>
 
     <item android:title="Logout"
         android:id="@+id/nav_logout"
-        android:icon="@drawable/ic_logout">
-        </item>
+        android:icon="@drawable/lock_icon">
+    </item>
 
 </menu>

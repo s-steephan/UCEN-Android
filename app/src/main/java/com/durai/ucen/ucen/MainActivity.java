@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -221,7 +222,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_close) {
+            final ProgressDialog progressdialog = new ProgressDialog(MainActivity.this);
+            progressdialog.setMessage("Please wait..");
+            progressdialog.show();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            progressdialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Bye.", Toast.LENGTH_SHORT).show();
+                            ActivityCompat.finishAffinity(MainActivity.this);
+                        }
+                    }, 2000);
             return true;
         }
 
@@ -234,9 +246,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_attendance) {
+        if (id == R.id.nav_attendance) {
             startActivity(new Intent(MainActivity.this, AttendanceActivity.class));
         } else if (id == R.id.nav_result) {
             startActivity(new Intent(MainActivity.this, SemestersListActivity.class));
@@ -248,11 +258,6 @@ public class MainActivity extends AppCompatActivity
             intent.setClassName("com.google.android.apps.maps",
                     "com.google.android.maps.MapsActivity");
             startActivity(intent);
-            /*Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse("geo:8.167338, 77.413882"));
-            i.setClassName("com.google.android.apps.maps",
-                    "com.google.android.maps.MapsActivity");
-            startActivity(i);*/
-
         } else if (id == R.id.nav_send) {
             String mailId = "selvaduraimurugan@gmail.com";
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
@@ -260,9 +265,6 @@ public class MainActivity extends AppCompatActivity
             emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Feedback - Reg");
             startActivity(Intent.createChooser(emailIntent, "Email via"));
-
-        } else if (id == R.id.nav_send) {
-
         }
         else if (id == R.id.nav_logout) {
             final ProgressDialog progressdialog = new ProgressDialog(MainActivity.this);
