@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity
         t_empty = (TextView) findViewById(R.id.empty_text);
         listView = (ListView) findViewById(R.id.circular_list);
         ArrayList<Circular> arrayOfCirculars = new ArrayList<Circular>();
-
         circularAdapter = new CircularAdapter(this, arrayOfCirculars);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -170,15 +169,7 @@ public class MainActivity extends AppCompatActivity
         api.getCirculars(new Callback<List<Circular>>() {
             @Override
             public void success(List<Circular> circulars, Response response) {
-                for(int i=0; i<circulars.size(); i++){
-                    Circular circular = new Circular();
-                    circular.setId(circulars.get(i).getId());
-                    circular.setTitle(circulars.get(i).getTitle());
-                    circular.setPublishedDate(circulars.get(i).getPublishedDate());
-                    //circularAdapter.addAll(circular);
-                    circularAdapter.add(circular);
-                }
-
+                circularAdapter.addAll(circulars);
                 t_empty.setVisibility(View.INVISIBLE);
                 if(circulars.size()==0){
                     t_empty.setVisibility(View.VISIBLE);

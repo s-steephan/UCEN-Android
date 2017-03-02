@@ -60,14 +60,7 @@ public class AttendanceActivity extends AppCompatActivity {
         api.getAttendance(new Callback<List<Attendance>>() {
             @Override
             public void success(List<Attendance> attendances, Response response) {
-                for(int i=0; i<attendances.size(); i++){
-                    Attendance attendance = new Attendance();
-                    attendance.setSemester(attendances.get(i).getSemester());
-                    attendance.setPercentage(attendances.get(i).getPercentage());
-                    //circular.setCreated(circulars.get(i).getCreated());
-                    attendanceAdapter.add(attendance);
-                }
-
+                attendanceAdapter.addAll(attendances);
                 t_empty.setVisibility(View.INVISIBLE);
                 if(attendances.size()==0){
                     t_empty.setVisibility(View.VISIBLE);
