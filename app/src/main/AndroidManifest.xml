@@ -27,8 +27,10 @@
         </activity>
         <activity
             android:name=".AttendanceActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".CircularDetailActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".CircularDetailActivity" />
+        <activity android:name=".SemestersListActivity" />
+        <activity android:name=".SemesterDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class AttendanceActivity extends AppCompatActivity {
-    public static final String ROOT_URL = "https://ucen.herokuapp.com";
+    public static String ROOT_URL = null;
     ListView listView;
     TextView t_empty;
     AttendanceAdapter attendanceAdapter ;
@@ -31,6 +31,7 @@ public class AttendanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
+        ROOT_URL = UcenUtils.getCoreUrl();
         listView = (ListView) findViewById(R.id.attendance_list);
         ArrayList<Attendance> arrayOfAttendance = new ArrayList<Attendance>();
 

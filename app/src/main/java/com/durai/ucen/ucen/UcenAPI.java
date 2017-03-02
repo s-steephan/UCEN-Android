@@ -39,4 +39,11 @@ public interface UcenAPI {
         @GET("/api/v1/posts/{id}/")
         public void getCircularDetail(@Path("id") String id, Callback<CircularDetail> response);
 
+        @GET("/api/v1/semesters/")
+        public void getSemestersList(Callback<List<SemestersList>> response);
+
+        @GET("/api/v1/semesters/{id}/")
+        public void getSemesterDetail(@Path("id") String id, Callback<Semester> response);
+
+
 };

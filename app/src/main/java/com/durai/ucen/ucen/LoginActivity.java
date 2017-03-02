@@ -28,7 +28,7 @@ import retrofit.mime.TypedByteArray;
 import retrofit.mime.TypedInput;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String ROOT_URL = "https://ucen.herokuapp.com";
+    public static String ROOT_URL = null;
     EditText t_username, t_password;
     Button login_button;
 
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ROOT_URL = UcenUtils.getCoreUrl();
         t_username = (EditText) findViewById(R.id.t_username);
         t_password = (EditText) findViewById(R.id.t_password);
         login_button = (Button) findViewById(R.id.login_button);

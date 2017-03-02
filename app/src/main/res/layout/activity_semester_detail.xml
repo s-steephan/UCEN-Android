@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_semester_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.durai.ucen.ucen.SemesterDetailActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/semester_title_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text="Loading..."
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/semester_updated_date"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:layout_below="@+id/semester_title_text"
+        android:text="Last Updated on Feb. 23, 2017, 3:06 p.m."
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/subjects_list"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/semester_updated_date"
+        android:layout_height="wrap_content">
+    </ListView>
+
+
+</RelativeLayout>

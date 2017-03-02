@@ -19,7 +19,7 @@
     <item android:title="Marks">
         <menu>
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_result"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Result" />
         <item

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="100dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/subject_title_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:text="Computer Networks"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_code_text"
+        android:text="Subject Code: CSE2041"
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/subject_title_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_score_text"
+        android:text="Score: 100"
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/subject_code_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_status_text"
+        android:text="Status: Pass"
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/subject_score_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_attempts_text"
+        android:text="Number of Attempts: 1"
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/subject_status_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_updated_date"
+        android:text="Last Updated on Feb. 23, 2017, 3:06 p.m."
+        android:textSize="13dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/subject_attempts_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"/>
+
+
+</RelativeLayout>

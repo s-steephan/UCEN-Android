@@ -31,12 +31,13 @@ import retrofit.client.Response;
 public class CircularDetailActivity extends AppCompatActivity {
     String circular_id;
     WebView webView;
-    public static final String ROOT_URL = "https://ucen.herokuapp.com";
+    public static String ROOT_URL = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circular_detail);
+        ROOT_URL = UcenUtils.getCoreUrl();
         webView = (WebView) findViewById(R.id.newweb);
         circular_id = getIntent().getStringExtra("circular_id");
 

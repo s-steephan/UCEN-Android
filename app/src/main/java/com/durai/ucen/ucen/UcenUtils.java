@@ -20,7 +20,9 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class UcenUtils {
+    public static String ROOT_URL = "https://ucen.herokuapp.com";
     public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";
+
     public static String getToken(Activity activity){
         SharedPreferences settings = activity.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
         String token = settings.getString("token", "");
@@ -66,5 +68,7 @@ public class UcenUtils {
         return null;
     }
 
-
+    public static String getCoreUrl(){
+        return ROOT_URL;
+    }
 }

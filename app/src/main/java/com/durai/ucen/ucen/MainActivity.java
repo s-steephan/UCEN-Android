@@ -36,7 +36,7 @@ import retrofit.mime.TypedByteArray;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static final String ROOT_URL = "https://ucen.herokuapp.com";
+    public static String ROOT_URL = null;
     public static final String PREFS_NAME_1 = "User_Details", PREFS_NAME_2 = "Login_Token";
     ListView listView;
     TextView t_empty;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ROOT_URL = UcenUtils.getCoreUrl();
         t_empty = (TextView) findViewById(R.id.empty_text);
         listView = (ListView) findViewById(R.id.circular_list);
         ArrayList<Circular> arrayOfCirculars = new ArrayList<Circular>();
@@ -245,8 +246,8 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_attendance) {
             startActivity(new Intent(MainActivity.this, AttendanceActivity.class));
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_result) {
+            startActivity(new Intent(MainActivity.this, SemestersListActivity.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_send) {
