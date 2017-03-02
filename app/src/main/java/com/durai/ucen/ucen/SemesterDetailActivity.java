@@ -37,7 +37,7 @@ public class SemesterDetailActivity extends AppCompatActivity {
     }
 
     private void getSemesterDetail(String semester_id) {
-        final ProgressDialog loading = ProgressDialog.show(this,"Loading Circular","Please wait...",false,false);
+        final ProgressDialog loading = ProgressDialog.show(this,"Loading Semester Details","Please wait...",false,false);
 
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(ROOT_URL)
