@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="Cirulars List"/>
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".SplashScreenActivity"
@@ -27,10 +28,14 @@
         </activity>
         <activity
             android:name=".AttendanceActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".CircularDetailActivity" />
-        <activity android:name=".SemestersListActivity" />
-        <activity android:name=".SemesterDetailActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:label="Attendance List"/>
+        <activity android:name=".CircularDetailActivity"
+            android:label="Circular Details"/>
+        <activity android:name=".SemestersListActivity"
+            android:label="Results List"/>
+        <activity android:name=".SemesterDetailActivity"
+            android:label="Result Detail"></activity>
     </application>
 
 </manifest>
