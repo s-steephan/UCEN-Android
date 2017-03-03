@@ -12,7 +12,6 @@
         android:id="@+id/empty_text"
         android:text="No Semester Details found"
         android:textSize="15dp"
-        android:visibility="gone"
         android:gravity="center"/>
 
     <ListView

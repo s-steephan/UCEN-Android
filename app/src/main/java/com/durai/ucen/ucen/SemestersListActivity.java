@@ -80,6 +80,7 @@ public class SemestersListActivity extends AppCompatActivity {
             @Override
             public void success(List<SemestersList> semestersLists, Response response) {
                 semestersListAdapter.addAll(semestersLists);
+                t_empty.setVisibility(View.GONE);
                 if(semestersLists.size()==0){
                     t_empty.setVisibility(View.VISIBLE);
                 }

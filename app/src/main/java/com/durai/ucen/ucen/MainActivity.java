@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity
                     new Runnable() {
                         public void run() {
                             progressdialog.dismiss();
-                            Toast.makeText(MainActivity.this, "Bye.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Bye", Toast.LENGTH_SHORT).show();
                             ActivityCompat.finishAffinity(MainActivity.this);
                         }
                     }, 2000);
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences login_credentials = MainActivity.this.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
             user_details.edit().clear().apply();
             login_credentials.edit().clear().apply();
-            Toast.makeText(MainActivity.this, "Logout Success", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Bye", Toast.LENGTH_LONG).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             progressdialog.dismiss();
         }
