@@ -53,6 +53,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        try {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+        }
         String username = t_username.getText().toString();
         String password = t_password.getText().toString();
         if(UcenUtils.isInternetAvailable(LoginActivity.this)) {
@@ -71,11 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void getToken(String username, String password){
-        /*InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);*/
-
         final ProgressDialog progressdialog = new ProgressDialog(LoginActivity.this);
         progressdialog.setMessage("Authenticating...");
         progressdialog.show();

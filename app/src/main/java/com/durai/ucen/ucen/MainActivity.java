@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity
             String mailId = "selvaduraimurugan@gmail.com";
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
                     Uri.fromParts("mailto", mailId, null));
-            emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+            //emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Feedback - Reg");
             startActivity(Intent.createChooser(emailIntent, "Email via"));
         }
@@ -273,10 +273,7 @@ public class MainActivity extends AppCompatActivity
             final ProgressDialog progressdialog = new ProgressDialog(MainActivity.this);
             progressdialog.setMessage("Logging out..");
             progressdialog.show();
-            SharedPreferences user_details = MainActivity.this.getSharedPreferences(PREFS_NAME_1, MODE_PRIVATE);
-            SharedPreferences login_credentials = MainActivity.this.getSharedPreferences(PREFS_NAME_2, MODE_PRIVATE);
-            user_details.edit().clear().apply();
-            login_credentials.edit().clear().apply();
+            UcenUtils.clearAllDetails(MainActivity.this);
             Toast.makeText(MainActivity.this, "Bye", Toast.LENGTH_LONG).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             progressdialog.dismiss();
