@@ -31,6 +31,11 @@ public class SemesterAnalyticsActivity extends AppCompatActivity {
     private static String ROOT_URL = null;
     String semester_id;
     SubjectAdapter subjectAdapter;
+    BarChart barChart;
+    ArrayList<BarEntry> entries;
+    ArrayList<String> labels;
+    BarData data;
+    BarDataSet bardataset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,9 @@ public class SemesterAnalyticsActivity extends AppCompatActivity {
         ArrayList<Subject> arrayOfSubjects = new ArrayList<Subject>();
         subjectAdapter = new SubjectAdapter(this, arrayOfSubjects);
         ROOT_URL = UcenUtils.getCoreUrl();
+        entries = new ArrayList<>();
+        labels = new ArrayList<String>();
+        bardataset = new BarDataSet(entries, "Cells");
         getSemesterDetail(semester_id);
 
         final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
@@ -49,6 +57,9 @@ public class SemesterAnalyticsActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 swipeView.setRefreshing(true);
+                data.clearValues();
+                entries.clear();
+                labels.clear();
                 getSemesterDetail(semester_id);
                 swipeView.setRefreshing(false);
             }
@@ -81,15 +92,12 @@ public class SemesterAnalyticsActivity extends AppCompatActivity {
                         semester_title.setText(semester.getSemester());
                         updated_date.setText("Updated on: "+date);
                         updated_date.setVisibility(View.VISIBLE);
-                        BarChart barChart = (BarChart) findViewById(R.id.barchart);
-                        ArrayList<BarEntry> entries = new ArrayList<>();
-                        ArrayList<String> labels = new ArrayList<String>();
-                        BarDataSet bardataset = new BarDataSet(entries, "Cells");
+                        barChart = (BarChart) findViewById(R.id.barchart);
                         for(int i=0; i<semester.getSubjects().size(); i++){
                             entries.add(new BarEntry(Float.parseFloat(semester.getSubjects().get(i).getScore()), i));
                             labels.add(semester.getSubjects().get(i).getName());
                         }
-                        BarData data = new BarData(labels, bardataset);
+                        data = new BarData(labels, bardataset);
                         barChart.setData(data);
                         barChart.setDescription("Semester Analytics");
                         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
