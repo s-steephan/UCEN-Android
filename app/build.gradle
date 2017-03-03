@@ -29,5 +29,6 @@ dependencies {
     compile 'io.github.yuweiguocn:SquareLoading:1.3.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.github.zurche:plain-pie:v0.2.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     testCompile 'junit:junit:4.12'
 }

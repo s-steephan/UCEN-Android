@@ -24,12 +24,14 @@ public class SemestersListActivity extends AppCompatActivity {
     ListView listView;
     TextView t_empty;
     SemestersListAdapter semestersListAdapter;
+    String is_analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semesters_list);
         ROOT_URL=UcenUtils.getCoreUrl();
+        is_analytics = getIntent().getStringExtra("is_analytics");
         t_empty = (TextView) findViewById(R.id.empty_text);
         listView = (ListView) findViewById(R.id.semesters_list);
         ArrayList<SemestersList> arrayOfSemesters = new ArrayList<SemestersList>();
@@ -42,7 +44,13 @@ public class SemestersListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position,
                                     long id) {
                 SemestersList model = (SemestersList) parent.getItemAtPosition(position);
-                Intent intent = new Intent(SemestersListActivity.this, SemesterDetailActivity.class);
+                Intent intent;
+                if (is_analytics != null) {
+                    intent = new Intent(SemestersListActivity.this, SemesterAnalyticsActivity.class);
+                }
+                else {
+                    intent = new Intent(SemestersListActivity.this, SemesterDetailActivity.class);
+                }
                 intent.putExtra("semester_id", model.getId().toString());
                 startActivity(intent);
             }

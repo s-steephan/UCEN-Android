@@ -248,9 +248,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_attendance) {
             startActivity(new Intent(MainActivity.this, AttendanceActivity.class));
-        } else if (id == R.id.nav_result) {
+        }
+        else if (id == R.id.nav_result) {
             startActivity(new Intent(MainActivity.this, SemestersListActivity.class));
-        } else if (id == R.id.nav_map) {
+        }
+        else if (id == R.id.nav_map) {
             String lat="8.167338", lng="77.413882", mTitle="University College of Engineering, Nagercoil";
             String geoUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + mTitle + ")";
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
@@ -258,7 +260,8 @@ public class MainActivity extends AppCompatActivity
             intent.setClassName("com.google.android.apps.maps",
                     "com.google.android.maps.MapsActivity");
             startActivity(intent);
-        } else if (id == R.id.nav_send) {
+        }
+        else if (id == R.id.nav_send) {
             String mailId = "selvaduraimurugan@gmail.com";
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
                     Uri.fromParts("mailto", mailId, null));
@@ -277,6 +280,11 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "Logout Success", Toast.LENGTH_LONG).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             progressdialog.dismiss();
+        }
+        else if (id==R.id.nav_analytics){
+            Intent intent = new Intent(MainActivity.this, SemestersListActivity.class);
+            intent.putExtra("is_analytics", "true");
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
