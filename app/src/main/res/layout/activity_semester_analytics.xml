@@ -34,10 +34,19 @@
         android:text="Last Updated on Feb. 23, 2017, 3:06 p.m."
         android:visibility="gone"/>
 
-    <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/barchart"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/semester_updated_date"
-        android:layout_height="match_parent"/>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh">
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/barchart"
+            android:layout_width="match_parent"
+            android:layout_below="@id/semester_updated_date"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

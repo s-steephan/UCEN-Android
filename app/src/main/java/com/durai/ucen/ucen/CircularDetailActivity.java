@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.icu.util.Calendar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -42,6 +43,16 @@ public class CircularDetailActivity extends AppCompatActivity {
         circular_id = getIntent().getStringExtra("circular_id");
 
         getCircularDetail(circular_id);
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeView.setProgressViewOffset(false, 0,160);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                getCircularDetail(circular_id);
+                swipeView.setRefreshing(false);
+            }
+        });
     }
 
     private void getCircularDetail(String circular_id){

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -57,6 +59,17 @@ public class MainActivity extends AppCompatActivity
         getUserDetails();
         getCirculars();
 
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeView.setProgressViewOffset(false, 0,160);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                           @Override
+                                           public void onRefresh() {
+                                               swipeView.setRefreshing(true);
+                                               circularAdapter.clear();
+                                               getCirculars();
+                                               swipeView.setRefreshing(false);
+                                           }
+                                       });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

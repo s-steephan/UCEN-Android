@@ -2,6 +2,7 @@ package com.durai.ucen.ucen;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,17 @@ public class SemesterDetailActivity extends AppCompatActivity {
         subjectAdapter = new SubjectAdapter(this, arrayOfSubjects);
         ROOT_URL = UcenUtils.getCoreUrl();
         getSemesterDetail(semester_id);
+
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                subjectAdapter.clear();
+                getSemesterDetail(semester_id);
+                swipeView.setRefreshing(false);
+            }
+        });
     }
 
     private void getSemesterDetail(String semester_id) {

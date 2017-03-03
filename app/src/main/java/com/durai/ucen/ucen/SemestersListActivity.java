@@ -2,6 +2,7 @@ package com.durai.ucen.ucen;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,17 @@ public class SemestersListActivity extends AppCompatActivity {
         ArrayList<SemestersList> arrayOfSemesters = new ArrayList<SemestersList>();
         semestersListAdapter = new SemestersListAdapter(this, arrayOfSemesters);
         getSemesterList();
+
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                semestersListAdapter.clear();
+                getSemesterList();
+                swipeView.setRefreshing(false);
+            }
+        });
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
 
