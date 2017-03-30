@@ -90,15 +90,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public static final String PREFS_NAME = "Login_Token";
                     @Override
                     public void success(Token result, Response response) {
-                        t_username.setText("");
-                        t_password.setText("");
                         String token = result.getToken();
                         SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString("token", token);
                         editor.apply();
+                        t_username.setText("");
+                        t_password.setText("");
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        Toast.makeText(LoginActivity.this, "Welcome...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
                         progressdialog.dismiss();
                     }
 

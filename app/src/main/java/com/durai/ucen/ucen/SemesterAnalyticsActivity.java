@@ -101,7 +101,7 @@ public class SemesterAnalyticsActivity extends AppCompatActivity {
                         barChart.setData(data);
                         barChart.setDescription("Semester Analytics");
                         bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-                        barChart.animateY(2000);
+                        barChart.animateY(1000);
                         loading.dismiss();
                     }
 
